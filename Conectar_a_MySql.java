@@ -3,25 +3,26 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
-public class Login extends JFrame {
+public class Alta extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtUsuario;
-	private JPasswordField txtPass;
-	private final static String USER="Ismael";
-	private final static String PASS="2196";
+	private JTextField textNombre;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
 
 	/**
 	 * Launch the application.
@@ -30,7 +31,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					Alta frame = new Alta();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,59 +43,111 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
-		setForeground(Color.BLACK);
+	public Alta() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setForeground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblUsuario.setBounds(69, 48, 165, 20);
-		contentPane.add(lblUsuario);
+		JLabel lblAltasMascotasEn = new JLabel("ALTAS MASCOTAS EN PET");
+		lblAltasMascotasEn.setBounds(145, 22, 230, 14);
+		contentPane.add(lblAltasMascotasEn);
 		
-		txtUsuario = new JTextField();
-		txtUsuario.setBounds(217, 48, 152, 25);
-		contentPane.add(txtUsuario);
-		txtUsuario.setColumns(10);
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(130, 62, 46, 14);
+		contentPane.add(lblNombre);
 		
-		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblContrasea.setBounds(69, 110, 165, 20);
-		contentPane.add(lblContrasea);
+		JLabel lblEspecie = new JLabel("Especie");
+		lblEspecie.setBounds(130, 87, 46, 14);
+		contentPane.add(lblEspecie);
 		
-		txtPass = new JPasswordField();
-		txtPass.setColumns(10);
-		txtPass.setBounds(217, 105, 152, 25);
-		contentPane.add(txtPass);
+		JLabel lblSexo = new JLabel("Sexo");
+		lblSexo.setBounds(130, 112, 46, 14);
+		contentPane.add(lblSexo);
 		
-		JButton btnEnviar = new JButton("Enviar");
+		JLabel lblNacimiento = new JLabel("Nacimiento");
+		lblNacimiento.setBounds(130, 137, 67, 14);
+		contentPane.add(lblNacimiento);
+		
+		JLabel lblMuerto = new JLabel("Muerto");
+		lblMuerto.setBounds(130, 162, 46, 14);
+		contentPane.add(lblMuerto);
+		
+		textNombre = new JTextField();
+		textNombre.setBounds(207, 59, 86, 20);
+		contentPane.add(textNombre);
+		textNombre.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(207, 84, 86, 20);
+		contentPane.add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(207, 109, 86, 20);
+		contentPane.add(textField_2);
+		textField_2.setColumns(10);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(207, 134, 86, 20);
+		contentPane.add(textField_3);
+		textField_3.setColumns(10);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(207, 159, 86, 20);
+		contentPane.add(textField_4);
+		textField_4.setColumns(10);
+		
+		JButton btnEnviar = new JButton("ENVIAR");
 		btnEnviar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String vUser = txtUsuario.getText().toString();
-				String vPass = txtPass.getText().toString();
-				
-				if(vUser.equals(USER))
-				{
-					if(vPass.equals(PASS))
-					{
-						Menú miMenú = new Menú();
-						miMenú.setVisible(true);
-					}
-					else{
-						JOptionPane.showMessageDialog(null, "Usuario y/o contraseña no validos", "Error Login", 0);
-					}
-				}
-				else{
-					JOptionPane.showMessageDialog(null, "Usuario y/o contraseña no validos", "Error Login", 0);
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				Connection conexion;
+				try{
+					conexion=DriverManager.getConnection("jdbc:mysql://localhost/menagerie","root","");
+					Statement comando = (Statement) conexion.createStatement();
+					String sql ="INSERT INTO 'pet' VALUES('";
+					
+					//Nombre
+					if(!lblNombre.getText().isEmpty())
+						sql=sql + lblNombre.getText()+"',";
+					else
+						sql=sql+"'";
+					
+					//Especie
+					if(!lblEspecie.getText().isEmpty())
+						sql=sql + lblEspecie.getText()+"',";
+					else
+						sql=sql+"'";
+					
+					//Nacimiento
+					if(!lblNacimiento.getText().isEmpty())
+						sql=sql + lblNacimiento.getText()+"',";
+					else
+						sql=sql+"'";
+					
+					//Sexo
+					if(!lblSexo.getText().isEmpty())
+						sql=sql + lblSexo.getText()+"',";
+					else
+						sql=sql+"'";
+					
+					//Muerto
+					if(!lblMuerto.getText().isEmpty())
+						sql=sql + lblMuerto.getText()+"',";
+					else
+						sql=sql+"'";
+					JOptionPane.showConfirmDialog(Alta.this, "El registro ha sido insertado correctamente");
+				}catch(SQLException ex){
+					JOptionPane.showConfirmDialog(Alta.this, "El registro ha sido insertado correctamente");
+					ex.printStackTrace();
 				}
 			}
+			
 		});
-		btnEnviar.setBounds(146, 168, 141, 52);
+		btnEnviar.setBounds(164, 208, 89, 23);
 		contentPane.add(btnEnviar);
 	}
 }
