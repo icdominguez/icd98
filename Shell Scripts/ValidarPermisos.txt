@@ -1,0 +1,26 @@
+if [ $# -ne 1 ]
+then
+        echo Error de sintaxis
+else
+        correcto=0
+        x=`echo $1|cut -b 1`
+        y=`echo $1|cut -b 2`
+        z=`echo $1|cut -b 3`
+        if [ $x -ge 0 ] && [ $x -le 7 ]
+        then
+                if [ $y -ge 0 ] && [ $y -le 7 ]
+                then
+                        if [ $z -ge 0 ] && [ $z -le 7 ]
+                        then
+                                correcto=1
+                                echo Permisos correctos
+                        else
+                                echo $z no valido
+                        fi
+                else
+                        echo $y no valido
+                fi
+        else
+                echo $x no valido
+        fi
+fi
