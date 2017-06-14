@@ -1,0 +1,53 @@
+if [ $# -ne 2 ]
+	then 
+		echo Error sintaxis.
+	else
+		permisos=$1
+		archivo=$2		
+
+		correcto=0
+		x=`echo $1 | cut -b 1`
+		y=`echo $1 | cut -b 2`
+		z=`echo $1 | cut -b 3`
+
+		if [ $x -ge 0 ] && [ $x -le 7 ]
+
+			then
+				if [ $y -ge 0 ] && [ $y -le 7 ]
+
+					then
+						if [ $z -ge 0 ] && [ $z -le 7 ]
+	
+							then
+								correcto=1
+								echo Permisos correctos.
+							else
+
+								echo $z no valido.		
+						fi
+					else
+						echo $y no valido.
+				fi
+			else
+				echo $x no valido.
+		fi	
+fi
+		if [ $correcto -eq 1 ]					#CHMOD
+			then
+				if [ -f $archivo ] || [ -d $archivo ]
+					then
+						propietario=`ls -l $archivo | cut -b 13-17`
+						yo=$LOGNAME	
+						if [ "$yo" = "$propietario" ]
+							then
+								chmod $permisos $archivo
+								echo Permisos saisfactoria modificados
+							else
+								echo No eres propietario.
+						fi
+					else
+						$archivo no existe.
+				fi
+			else
+				echo Permisos no validos.
+fi
