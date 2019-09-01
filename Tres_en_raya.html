@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tres en raya</title>
+	<style type="text/css">
+		.tablero
+		{
+    		width: 306px;
+    		height: 306px;                  
+		}
+		.tablero div
+		{
+    		width: 100px;
+    		height: 100px;
+    		border: 1px solid black;
+    		float: left;
+    		background-color: #D5D5D5;        
+    		font-size: 30;  
+    		text-align: center;
+		}
+	</style>
+</head>
+<body onload="crearTablero();">
+	<h1>Tres en raya por Ismael</h1>
+	<div id="contenedor" class="tablero">
+	</div>
+	<script type="text/javascript">
+		var turno= 'x';
+		var cont=0;
+
+		function crearTablero()
+		{
+			for(filas=0;filas<3;filas++)
+			{
+				for(columnas=0;columnas<3;columnas++)
+				{
+					var div = document.createElement("div");
+					div.id = "celda"+filas+"-"+columnas;
+					div.addEventListener("click",ponerFicha,true);
+					contenedor.appendChild(div);
+				}
+			}
+		}
+
+		function cambiarTurno()
+		{
+			if(turno=='x')
+				turno='y';
+			else
+				turno='x'
+		}
+
+		function ponerFicha(e)
+		{
+			var celda = document.getElementById(this.id);
+
+			if(turno =='x')
+				celda.style.backgroundColor = "#3143da";
+			else
+				celda.style.backgroundColor = "#2ECCFA";
+			cont=1;
+
+			comprobarVictoria();
+		}
+
+		function comprobarVictoria()
+		{
+			if(turno == 'x')
+			{
+				//Comprobaciones verticales
+				if((document.getElementById("celda0-1").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda0-1").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda0-2").style.backgroundColor=="rgb(49, 67, 218)"))
+				{
+					alert("Gana jugador 1");
+					reset();
+				}
+				else if((document.getElementById("celda1-0").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda1-1").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda1-2").style.backgroundColor=="rgb(49, 67, 218)"))
+				{
+					alert("Gana jugador 1");
+					reset();
+				}
+				else if((document.getElementById("celda2-0").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda2-1").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda2-2").style.backgroundColor=="rgb(49, 67, 218)"))
+				{
+					alert("Gana jugador 1");
+					reset();
+				}
+
+				//Comprobaciones horizontales
+				if((document.getElementById("celda0-0").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda1-0").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda2-0").style.backgroundColor=="rgb(49, 67, 218)"))
+				{
+					alert("Gana jugador 1");
+					reset();
+				}
+				if((document.getElementById("celda0-1").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda1-1").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda2-1").style.backgroundColor=="rgb(49, 67, 218)"))
+				{
+					alert("Gana jugador 1");
+					reset();
+				}
+				if((document.getElementById("celda0-2").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda1-2").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda2-2").style.backgroundColor=="rgb(49, 67, 218)"))
+				{
+					alert("Gana jugador 1");
+					reset();
+				}
+
+				//Comprobaciones diagonales
+				if((document.getElementById("celda0-0").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda1-1").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda2-2").style.backgroundColor=="rgb(49, 67, 218)"))
+				{
+					alert("Gana jugador 1");
+					reset();
+				}
+
+				if((document.getElementById("celda0-2").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda1-1").style.backgroundColor=="rgb(49, 67, 218)") && (document.getElementById("celda2-0").style.backgroundColor=="rgb(49, 67, 218)"))
+				{
+					alert("Gana jugador 1");
+					reset();
+				}
+			}
+
+			if(turno == 'y')
+			{
+				//Comprobaciones verticales
+				if((document.getElementById("celda0-1").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda0-1").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda0-2").style.backgroundColor=="rgb(46, 204, 250)"))
+				{
+					alert("Gana jugador 2");
+					reset();
+				}
+				else if((document.getElementById("celda1-0").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda1-1").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda1-2").style.backgroundColor=="rgb(46, 204, 250)"))
+				{
+					alert("Gana jugador 1");
+					reset();
+				}
+				else if((document.getElementById("celda2-0").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda2-1").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda2-2").style.backgroundColor=="rgb(46, 204, 250)"))
+				{
+					alert("Gana jugador 2");
+					reset();
+				}
+
+				//Comprobaciones horizontales
+				if((document.getElementById("celda0-0").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda1-0").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda2-0").style.backgroundColor=="rgb(46, 204, 250)"))
+				{
+					alert("Gana jugador 2");
+					reset();
+				}
+				if((document.getElementById("celda0-1").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda1-1").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda2-1").style.backgroundColor=="rgb(46, 204, 250)"))
+				{
+					alert("Gana jugador 2");
+					reset();
+				}
+				if((document.getElementById("celda0-2").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda1-2").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda2-2").style.backgroundColor=="rgb(46, 204, 250)"))
+				{
+					alert("Gana jugador 2");
+					reset();
+				}
+
+				//Comprobaciones diagonales
+				if((document.getElementById("celda0-0").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda1-1").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda2-2").style.backgroundColor=="rgb(46, 204, 250)"))
+				{
+					alert("Gana jugador 2");
+					reset();
+				}
+
+				if((document.getElementById("celda0-2").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda1-1").style.backgroundColor=="rgb(46, 204, 250)") && (document.getElementById("celda2-0").style.backgroundColor=="rgb(46, 204, 250)"))
+				{
+					alert("Gana jugador 2");
+					reset();
+				}
+			}
+			if((cont!=0 && document.getElementById("celda0-0").style.backgroundColor!="" && document.getElementById("celda0-1").style.backgroundColor!="" && document.getElementById("celda0-2").style.backgroundColor!="" && document.getElementById("celda1-0").style.backgroundColor!="" && document.getElementById("celda1-1").style.backgroundColor!="" && document.getElementById("celda1-2").style.backgroundColor!="" && document.getElementById("celda2-0").style.backgroundColor!="" && document.getElementById("celda2-1").style.backgroundColor!="" && document.getElementById("celda2-2").style.backgroundColor!=""))
+			{
+				alert("Empate");
+				reset();
+			}
+			cambiarTurno();
+		}
+
+		function reset()
+		{
+			for(var filas=0;filas<3;filas++)
+			{
+				for(var columnas=0;columnas<3;columnas++)
+				{
+					var celda = document.getElementById("celda"+filas+"-"+columnas);
+					celda.style.backgroundColor="";
+				}
+			}
+			cambiarTurno();
+		}
+	</script>
+</body>
+</html>
